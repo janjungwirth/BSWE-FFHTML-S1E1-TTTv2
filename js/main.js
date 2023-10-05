@@ -10,12 +10,22 @@ const tile6 = document.querySelector(".game-tile:nth-child(6)");
 const tile7 = document.querySelector(".game-tile:nth-child(7)");
 const tile8 = document.querySelector(".game-tile:nth-child(8)");
 const tile9 = document.querySelector(".game-tile:nth-child(9)");
-
+const save = document.querySelector(".save");
 wC = [];
+gamesPlayed = 0;
+winnsA = 0;
+winnsB = 0;
 
 var player = "a";
 board = ["z","z","z","z","z","z","z","z","z"];
 end = false;
+
+function saveScore(){
+  localStorage.setItem("gamesPlayed", gamesPlayed);
+  localStorage.setItem("winnsA", winnsA);
+  localStorage.setItem("winnsB", winnsB);
+  console.log("saving: " + gamesPlayed, winnsA, winnsB);
+}
 
 function onPress1(){
 
@@ -91,6 +101,7 @@ function newGame(){
 
   player = "a";
   end=false;
+  gamesPlayed++;
 }
 
 function checkWinner(){
@@ -111,10 +122,12 @@ function checkWinner(){
     if (wC[i] == "aaa"){
       console.log("Winner is Player A");
       end=true;
+      winnsA++;
     }
     else if(wC[i]== "bbb"){
       console.log("Winner is Player B");
       end=true;
+      winnsB++;
     }
   }
 
@@ -139,3 +152,5 @@ tile7.addEventListener("click", onPress1);
 tile8.addEventListener("click", onPress1);
 tile9.addEventListener("click", onPress1);
 nG.addEventListener("click", newGame);
+save.addEventListener("click", saveScore);
+
